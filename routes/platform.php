@@ -118,7 +118,17 @@ Route::screen('email', EmailSenderScreen::class)
 Route::screen('state', StateScreen::class)->name('state');
 
 Route::screen('post/{post?}', PostEditScreen::class)
-    ->name('platform.post.edit');
+->name('platform.post.edit')
+->breadcrumbs(function (Trail $trail){
+    return $trail
+        ->parent('platform.index')
+        ->push('Post edit');
+});
 
 Route::screen('posts', PostListScreen::class)
-    ->name('platform.post.list');
+->name('platform.post.list')
+->breadcrumbs(function (Trail $trail){
+    return $trail
+        ->parent('platform.index')
+        ->push('Post list');
+});
