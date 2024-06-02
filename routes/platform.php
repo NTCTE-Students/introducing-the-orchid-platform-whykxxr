@@ -20,6 +20,8 @@ use App\Orchid\Screens\User\UserProfileScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
 use App\Orchid\Screens\EmailSenderScreen;
+use App\Orchid\Screens\PostEditScreen;
+use App\Orchid\Screens\PostListScreen;
 /*
 |--------------------------------------------------------------------------
 | Dashboard Routes
@@ -114,3 +116,9 @@ Route::screen('email', EmailSenderScreen::class)
 
 
 Route::screen('state', StateScreen::class)->name('state');
+
+Route::screen('post/{post?}', PostEditScreen::class)
+    ->name('platform.post.edit');
+
+Route::screen('posts', PostListScreen::class)
+    ->name('platform.post.list');
