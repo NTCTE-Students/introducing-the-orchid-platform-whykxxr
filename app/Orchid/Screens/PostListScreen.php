@@ -23,6 +23,7 @@ class PostListScreen extends Screen
 
     /**
      * The name is displayed on the user's screen and in the headers
+     * @return string|null
      */
     public function name(): ?string
     {
@@ -41,6 +42,7 @@ class PostListScreen extends Screen
      * Button commands.
      *
      * @return Link[]
+     * @return \Orchid\Screen\Action[]
      */
     public function commandBar(): array
     {
@@ -55,6 +57,7 @@ class PostListScreen extends Screen
      * Views.
      *
      * @return Layout[]
+     * @return \Orchid\Screen\Layout[]|string[]
      */
     public function layout(): array
     {

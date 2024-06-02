@@ -1,23 +1,24 @@
 <?php
 
-namespace App;
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Screen\AsSource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Orchid\Attachment\Attachable;
+use Orchid\Attachment\Models\Attachment;
 class Post extends Model
 {
-    use AsSource;
+    use HasFactory;
+    use AsSource, Attachable;
 
-    /**
-     * @var array
-     */
+    
     protected $fillable = [
         'title',
         'description',
         'body',
-        'author'
+        'author',
+        'hero'
     ];
 }

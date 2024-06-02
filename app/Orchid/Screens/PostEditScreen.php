@@ -14,7 +14,7 @@ use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Alert;
-
+use Orchid\Screen\Fields\Cropper;
 class PostEditScreen extends Screen
 {
         /**
@@ -26,15 +26,16 @@ class PostEditScreen extends Screen
      * Fetch data to be displayed on the screen.
      * Query data.
      * 
-     * @param Post $post
+     * 
      *
      * @return array
      */
     public function query(Post $post): array
     {
-        return [
-            'post' => $post
-        ];
+            $post->load('attachment');
+            return [
+                'post' => $post
+            ];
     }
 
     /**
@@ -59,6 +60,7 @@ class PostEditScreen extends Screen
      * Button commands.
      *
      * @return Link[]
+     * @return \Orchid\Screen\Action[]
      */
     public function commandBar(): array
     {
@@ -84,8 +86,9 @@ class PostEditScreen extends Screen
      * Views.
      *
      * @return Layout[]
+     * @return \Orchid\Screen\Layout[]|string[]
      */
-    public function layout(): array
+    public function layout(): iterable
     {
         return [
             Layout::rows([
@@ -93,6 +96,12 @@ class PostEditScreen extends Screen
                     ->title('Title')
                     ->placeholder('Attractive but mysterious title')
                     ->help('Specify a short descriptive title for this post.'),
+
+                Cropper::make('post.hero')
+                    ->targetId()
+                    ->title('Large web banner image, generally in the front and center')
+                    ->width(1000)
+                    ->height(500),
 
                 TextArea::make('post.description')
                     ->title('Description')
@@ -107,14 +116,17 @@ class PostEditScreen extends Screen
                 Quill::make('post.body')
                     ->title('Main text'),
 
+                Upload::make('post.attachment')
+                    ->title('All files'),
+
             ])
         ];
     }
 
     /**
-     * @param Request $request
+     * 
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * 
      */
     public function createOrUpdate(Request $request)
     {
@@ -126,7 +138,7 @@ class PostEditScreen extends Screen
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     *
      */
     public function remove()
     {
