@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-
+use App\Orchid\Screens\StateScreen;
 use App\Orchid\Screens\Examples\ExampleActionsScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
@@ -110,3 +110,7 @@ Route::screen('email', EmailSenderScreen::class)
                 ->parent('platform.index')
                 ->push('Email sender');
     });
+
+
+
+Route::screen('state', StateScreen::class)->name('state');
