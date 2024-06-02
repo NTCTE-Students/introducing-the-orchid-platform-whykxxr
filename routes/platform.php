@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-
+use App\Orchid\Screens\StateScreen;
 use App\Orchid\Screens\Examples\ExampleActionsScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
@@ -19,7 +19,9 @@ use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
-
+use App\Orchid\Screens\EmailSenderScreen;
+use App\Orchid\Screens\PostEditScreen;
+use App\Orchid\Screens\PostListScreen;
 /*
 |--------------------------------------------------------------------------
 | Dashboard Routes
@@ -102,3 +104,31 @@ Route::screen('/examples/charts', ExampleChartsScreen::class)->name('platform.ex
 Route::screen('/examples/cards', ExampleCardsScreen::class)->name('platform.example.cards');
 
 //Route::screen('idea', Idea::class, 'platform.screens.idea');
+
+Route::screen('email', EmailSenderScreen::class)
+    ->name('platform.email')
+    ->breadcrumbs(function (Trail $trail){
+        return $trail
+                ->parent('platform.index')
+                ->push('Email sender');
+    });
+
+
+
+Route::screen('state', StateScreen::class)->name('state');
+
+Route::screen('post/{post?}', PostEditScreen::class)
+->name('platform.post.edit')
+->breadcrumbs(function (Trail $trail){
+    return $trail
+        ->parent('platform.index')
+        ->push('Post edit');
+});
+
+Route::screen('posts', PostListScreen::class)
+->name('platform.post.list')
+->breadcrumbs(function (Trail $trail){
+    return $trail
+        ->parent('platform.index')
+        ->push('Post list');
+});
